@@ -1,0 +1,51 @@
+.circles {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform-origin: 0 100px; /* Adjust based on radius */
+
+  font-weight: bold;
+}
+
+.circle1 {
+  transform: rotate(0deg);
+}
+.circle2 {
+  transform: rotate(25deg);
+}
+.circle3 {
+  transform: rotate(50deg);
+}
+.circle4 {
+  transform: rotate(75deg);
+}
+.circle5 {
+  transform: rotate(100deg);
+}
+.circle6 {
+  transform: rotate(125deg);
+}
+.circle7 {
+  transform: rotate(150deg);
+}
+.circle8 {
+  transform: rotate(175deg);
+}
+.circle9 {
+  transform: rotate(200deg);
+}
+.circle10 {
+  transform: rotate(225deg);
+}
+.circle11 {
+  transform: rotate(250deg);
+}
+.circle12 {
+  transform: rotate(275deg);
+}
+.circle13 {
+  transform: rotate(300deg);
+}
+.circle14 {
+  transform: rotate(325deg);
+}
