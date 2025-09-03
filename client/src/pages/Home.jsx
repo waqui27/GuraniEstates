@@ -11,9 +11,6 @@ import {
   Clock,
   ChevronDown,
   ChevronUp,
-  MapPin,
-  Navigation,
-  Eye,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -26,49 +23,20 @@ import homepic from "../assets/home.jpeg";
 import "../assets/home-mobile.jpeg";
 import buildings from "../assets/buildings.png";
 import building from "../assets/building.jpeg";
+import Map from "../components/Map";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const [openAccordion, setOpenAccordion] = useState(null);
-  const [showMapOptions, setShowMapOptions] = useState(false);
-  const [currentMapType, setCurrentMapType] = useState("roadmap");
 
   const toggleAccordion = (index) => {
     setOpenAccordion(openAccordion === index ? null : index);
   };
 
-  const mapTypes = [
-    {
-      id: "roadmap",
-      name: "Roadmap",
-      url: "https://maps.google.com/maps?q=12.949869990873,77.70091731482089&z=15&output=embed",
-    },
-    {
-      id: "satellite",
-      name: "Satellite",
-      url: "https://maps.google.com/maps?q=12.949869990873,77.70091731482089&z=15&t=k&output=embed",
-    },
-    {
-      id: "terrain",
-      name: "Terrain",
-      url: "https://maps.google.com/maps?q=12.949869990873,77.70091731482089&z=15&t=p&output=embed",
-    },
-    {
-      id: "hybrid",
-      name: "Hybrid",
-      url: "https://maps.google.com/maps?q=12.949869990873,77.70091731482089&z=15&t=h&output=embed",
-    },
-  ];
-
-  const handleMapTypeChange = (mapType) => {
-    setCurrentMapType(mapType.id);
-    setShowMapOptions(false);
-  };
-
   const faqData = [
     {
       question: "What are your office hours?",
-      answer:
-        "We're open Monday-Friday 9:00 AM - 6:00 PM, and Saturday 10:00 AM - 4:00 PM. We're closed on Sundays and major holidays.",
+      answer: "We're open 9:00 AM - 7:00 PM all day.",
     },
     {
       question: "How quickly do you respond to inquiries?",
@@ -86,7 +54,7 @@ const HomePage = () => {
         "Typically, you'll need proof of income, ID, references, and a completed application. Our team will provide a detailed checklist when you're ready to apply.",
     },
   ];
-
+  let navigate = useNavigate();
   return (
     <div className="min-h-screen bg-white z-10">
       {/* Hero Section */}
@@ -186,7 +154,7 @@ const HomePage = () => {
                 <div className="text-gray-600">Solutions</div>
               </div>
             </div>
-            <Button>Learn More</Button>
+            <Button onClick={() => navigate("/services")}>Learn More</Button>
           </div>
 
           <div className="ml-[-80px] md:ml-2 md:w-1/2">
@@ -363,7 +331,7 @@ const HomePage = () => {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-800 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
               Our Service Process
             </h2>
             <p className="text-gray-600 text-lg">
@@ -561,8 +529,10 @@ const HomePage = () => {
               </Parallax>
             </div>
           </div>
-          <div className="text-center mt-12">
-            <Button>GET A FREE CONSULTATION</Button>
+          <div className="ml-24 mt-12">
+            <Button onClick={() => navigate("/contact")}>
+              GET A FREE CONSULTATION
+            </Button>
           </div>
         </div>
       </section>
@@ -624,260 +594,7 @@ const HomePage = () => {
 
       {/* Map Section */}
 
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-800 mb-4">
-              Visit Our Office
-            </h2>
-            <p className="text-gray-600 text-lg">
-              Come see us in person at our modern downtown office
-            </p>
-          </div>
-
-          {/* Map Placeholder */}
-          <div className="bg-gray-200 rounded-2xl h-96 flex items-center justify-center">
-            <div className="w-[100%]  relative">
-              <div className="relative h-96 bg-gray-100 rounded-2xl overflow-hidden shadow-lg">
-                {/* Map Background - Google Maps Embed */}
-                <iframe
-                  src={mapTypes.find((type) => type.id === currentMapType)?.url}
-                  width="100%"
-                  height="100%"
-                  style={{
-                    border: 0,
-                  }}
-                  allowFullScreen=""
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  className="w-full h-full map-iframe"
-                ></iframe>
-
-                {/* Map Controls */}
-                <div className="absolute top-4 right-4 flex flex-col gap-2">
-                  <button
-                    onClick={() =>
-                      window.open(
-                        "https://www.google.com/maps/place/Kempegowda+International+Airport+Bengaluru/@12.949869990873,77.70091731482089,15z",
-                        "_blank"
-                      )
-                    }
-                    className="bg-white p-2 rounded-lg shadow-md hover:shadow-lg transition-shadow"
-                    title="View in Google Maps"
-                  >
-                    <Eye className="h-5 w-5 text-gray-600" />
-                  </button>
-                  <button
-                    onClick={() => {
-                      // Check if device is mobile
-                      const isMobile =
-                        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-                          navigator.userAgent
-                        );
-
-                      if (navigator.geolocation) {
-                        navigator.geolocation.getCurrentPosition(
-                          (position) => {
-                            const { latitude, longitude } = position.coords;
-
-                            if (isMobile) {
-                              // For mobile devices, use different URL formats
-                              const isIOS = /iPad|iPhone|iPod/.test(
-                                navigator.userAgent
-                              );
-
-                              if (isIOS) {
-                                // iOS - try Apple Maps first, fallback to Google Maps
-                                window.open(
-                                  `maps://maps.apple.com/?daddr=12.949869990873,77.70091731482089&saddr=${latitude},${longitude}`,
-                                  "_blank"
-                                );
-                                // Fallback to Google Maps after a short delay
-                                setTimeout(() => {
-                                  window.open(
-                                    `https://maps.google.com/maps?saddr=${latitude},${longitude}&daddr=12.949869990873,77.70091731482089&dirflg=d`,
-                                    "_blank"
-                                  );
-                                }, 1000);
-                              } else {
-                                // Android - use Google Maps intent or web fallback
-                                const googleMapsApp = `google.navigation:q=12.949869990873,77.70091731482089&mode=d`;
-                                const googleMapsWeb = `https://maps.google.com/maps?saddr=${latitude},${longitude}&daddr=12.949869990873,77.70091731482089&dirflg=d`;
-
-                                // Try to open in Google Maps app
-                                window.location.href = googleMapsApp;
-
-                                // Fallback to web version
-                                setTimeout(() => {
-                                  window.open(googleMapsWeb, "_blank");
-                                }, 1500);
-                              }
-                            } else {
-                              // Desktop - use standard Google Maps web
-                              window.open(
-                                `https://www.google.com/maps/dir/${latitude},${longitude}/12.949869990873,77.70091731482089`,
-                                "_blank"
-                              );
-                            }
-                          },
-                          () => {
-                            // If location access fails, open directions without current location
-                            const destination =
-                              "12.949869990873,77.70091731482089";
-
-                            if (isMobile) {
-                              const isIOS = /iPad|iPhone|iPod/.test(
-                                navigator.userAgent
-                              );
-
-                              if (isIOS) {
-                                window.open(
-                                  `maps://maps.apple.com/?daddr=${destination}`,
-                                  "_blank"
-                                );
-                                setTimeout(() => {
-                                  window.open(
-                                    `https://maps.google.com/maps?daddr=${destination}`,
-                                    "_blank"
-                                  );
-                                }, 1000);
-                              } else {
-                                window.location.href = `google.navigation:q=${destination}`;
-                                setTimeout(() => {
-                                  window.open(
-                                    `https://maps.google.com/maps?daddr=${destination}`,
-                                    "_blank"
-                                  );
-                                }, 1500);
-                              }
-                            } else {
-                              window.open(
-                                `https://www.google.com/maps/dir//${destination}`,
-                                "_blank"
-                              );
-                            }
-                          },
-                          {
-                            enableHighAccuracy: true,
-                            timeout: 10000,
-                            maximumAge: 300000,
-                          }
-                        );
-                      } else {
-                        // Geolocation not supported - open directions without current location
-                        const destination = "12.949869990873,77.70091731482089";
-                        window.open(
-                          `https://www.google.com/maps/dir//${destination}`,
-                          "_blank"
-                        );
-                      }
-                    }}
-                    className="bg-white p-2 rounded-lg shadow-md hover:shadow-lg transition-shadow"
-                    title="Get Directions"
-                  >
-                    <Navigation className="h-5 w-5 text-gray-600" />
-                  </button>
-                </div>
-
-                {/* Navigation Controls */}
-                <div className="absolute top-4 left-4 flex gap-2">
-                  {/* View Options Dropdown */}
-                  <div className="relative">
-                    <button
-                      onClick={() => setShowMapOptions(!showMapOptions)}
-                      className="bg-white px-3 py-2 rounded-lg shadow-md hover:shadow-lg transition-shadow text-gray-600 text-sm font-medium flex items-center gap-1"
-                    >
-                      View
-                      <ChevronDown
-                        className={`h-4 w-4 transition-transform ${
-                          showMapOptions ? "rotate-180" : ""
-                        }`}
-                      />
-                    </button>
-
-                    {/* Dropdown Menu */}
-                    {showMapOptions && (
-                      <div className="absolute top-full left-0 mt-1 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50 min-w-[120px]">
-                        {mapTypes.map((mapType) => (
-                          <button
-                            key={mapType.id}
-                            onClick={() => handleMapTypeChange(mapType)}
-                            className={`w-full text-left px-3 py-2 text-sm hover:bg-gray-100 transition-colors ${
-                              currentMapType === mapType.id
-                                ? "bg-primary/10 text-primary font-medium"
-                                : "text-gray-600"
-                            }`}
-                          >
-                            {mapType.name}
-                          </button>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-
-                  <button
-                    onClick={() => {
-                      if (navigator.geolocation) {
-                        navigator.geolocation.getCurrentPosition(
-                          (position) => {
-                            const { latitude, longitude } = position.coords;
-
-                            // Update the embedded map to show the user's location
-                            const embedUrl = `https://maps.google.com/maps?q=${latitude},${longitude}&z=16&output=embed`;
-
-                            const iframe =
-                              document.querySelector(".map-iframe");
-                            if (iframe) {
-                              iframe.src = embedUrl;
-                            }
-                          },
-                          () => {
-                            alert(
-                              "Unable to retrieve your location. Please enable location services."
-                            );
-                          }
-                        );
-                      } else {
-                        alert("Geolocation is not supported by this browser");
-                      }
-                    }}
-                    className="bg-white px-3 py-2 rounded-lg shadow-md hover:shadow-lg transition-shadow text-gray-600 text-sm font-medium"
-                  >
-                    My Location
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Directions */}
-          <div className="mt-8 grid md:grid-cols-3 gap-6 text-center">
-            <div className="bg-white p-6 rounded-xl shadow-lg">
-              <h4 className="font-semibold text-gray-800 mb-2">By Car</h4>
-              <p className="text-gray-600 text-sm">
-                Parking available in our building garage. Enter from Modern
-                Street.
-              </p>
-            </div>
-            <div className="bg-white p-6 rounded-xl shadow-lg">
-              <h4 className="font-semibold text-gray-800 mb-2">
-                By Public Transit
-              </h4>
-              <p className="text-gray-600 text-sm">
-                2 blocks from Central Station. Take the Red or Blue line to
-                Downtown.
-              </p>
-            </div>
-            <div className="bg-white p-6 rounded-xl shadow-lg">
-              <h4 className="font-semibold text-gray-800 mb-2">By Foot</h4>
-              <p className="text-gray-600 text-sm">
-                Located in the heart of downtown, easily walkable from most
-                hotels.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Map />
       {/* Contact Form Section */}
       <ContactForm />
       {/* CTA Section */}
@@ -891,10 +608,14 @@ const HomePage = () => {
             matches your lifestyle and budget
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all">
+            <Button
+              onClick={() => navigate("/services")}
+              className="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all"
+            >
               View Our Services
             </Button>
             <Button
+              onClick={() => navigate("/contact")}
               variant="outline"
               className="border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-3 rounded-full transition-all"
             >

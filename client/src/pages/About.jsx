@@ -1,8 +1,10 @@
 import Button from "../components/Button";
 import { Users, Award, Target, Heart, Shield } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import "../App.css";
 
 const About = () => {
+  let navigate = useNavigate();
   return (
     <div className="min-h-screen bg-white z-10">
       {/* Hero Section */}
@@ -64,7 +66,7 @@ const About = () => {
                 <div className="text-gray-600">Based</div>
               </div>
             </div>
-            <Button>Learn More</Button>
+            <Button onClick={() => navigate("/services")}>Learn More</Button>
           </div>
 
           <div className="md:px-10 md:flex md:justify-center md:items-center md:px-0 md:w-1/2 mt-10 md:mt-0">
@@ -242,10 +244,14 @@ const About = () => {
               renting, or property management.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all">
+              <Button
+                onClick={() => navigate("/services")}
+                className="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all"
+              >
                 View Our Services
               </Button>
               <Button
+                onClick={() => navigate("/navigate")}
                 variant="outline"
                 className="border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-3 rounded-full transition-all"
               >

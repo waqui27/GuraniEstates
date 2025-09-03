@@ -236,7 +236,7 @@ const ContactForm = () => {
 
             <div className="lg:pl-8">
               <h3 className="text-2xl font-bold text-gray-800 mb-6">
-                Why Choose Apperty?
+                Why Choose Us?
               </h3>
 
               <div className="space-y-6">
@@ -284,25 +284,6 @@ const ContactForm = () => {
                     </p>
                   </div>
                 </div>
-              </div>
-
-              {/* Emergency Contact */}
-              <div className="mt-12 p-6 bg-gray-50 rounded-2xl">
-                <h4 className="text-lg font-semibold text-gray-800 mb-4">
-                  Emergency Contact
-                </h4>
-                <p className="text-gray-600 mb-4">
-                  For urgent property-related issues outside business hours:
-                </p>
-                <div className="flex items-center space-x-3">
-                  <Phone className="h-5 w-5 text-gray-800 text-primary" />
-                  <span className="text-gray-800 font-semibold">
-                    +1 (555) 911-HELP
-                  </span>
-                </div>
-                <p className="text-sm text-gray-500 mt-2">
-                  Available 24/7 for current residents only
-                </p>
               </div>
             </div>
           </div>

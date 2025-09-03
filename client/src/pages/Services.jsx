@@ -1,17 +1,8 @@
 import Button from "../components/Button";
 import {
-  Building,
-  Search,
-  Users,
-  Palette,
-  CheckCircle,
-  Eye,
-  UserCheck,
-  Home,
   Shield,
   Clock,
   Star,
-  ArrowRight,
   Newspaper, // For Advertising
   DollarSign, // For Rent Rates
   ClipboardCheck, // For Tenant Placement
@@ -27,17 +18,18 @@ import {
   Wallet, // For Transparent Expense Reporting
 } from "lucide-react";
 import "../App.css";
-
+import { useNavigate } from "react-router-dom";
 // Import service-related images
 
 const Services = () => {
+  let navigate = useNavigate();
   return (
     <div className="min-h-screen bg-white z-10">
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+      <section className="relative py-10 md:py-20 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6">
               Property Management Services
             </h1>
             <p className="text-xl md:text-2xl text-gray-300 leading-relaxed">
@@ -360,7 +352,7 @@ const Services = () => {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-800 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
               Our Service Process
             </h2>
             <p className="text-gray-600 text-lg">
@@ -420,95 +412,6 @@ const Services = () => {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-800 mb-4">
-              What Our Clients Say
-            </h2>
-            <p className="text-gray-600 text-lg">
-              Real feedback from satisfied property owners
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-2xl shadow-lg">
-              <div className="flex items-center mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className="h-5 w-5 text-yellow-400 fill-current"
-                  />
-                ))}
-              </div>
-              <p className="text-gray-600 mb-6 italic">
-                "Gurani Estates has been exceptional. They handle everything
-                professionally and keep me informed every step of the way."
-              </p>
-              <div className="flex items-center">
-                <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mr-4">
-                  <Users className="h-6 w-6 text-gray-600" />
-                </div>
-                <div>
-                  <p className="font-bold text-gray-800">David</p>
-                  <p className="text-sm text-gray-500">Property Owner</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white p-8 rounded-2xl shadow-lg">
-              <div className="flex items-center mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className="h-5 w-5 text-yellow-400 fill-current"
-                  />
-                ))}
-              </div>
-              <p className="text-gray-600 mb-6 italic">
-                "The tenant placement service was outstanding. They found
-                quality tenants quickly and handled all the paperwork
-                seamlessly."
-              </p>
-              <div className="flex items-center">
-                <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mr-4">
-                  <Users className="h-6 w-6 text-gray-600" />
-                </div>
-                <div>
-                  <p className="font-bold text-gray-800">Sarah</p>
-                  <p className="text-sm text-gray-500">Real Estate Investor</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white p-8 rounded-2xl shadow-lg">
-              <div className="flex items-center mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className="h-5 w-5 text-yellow-400 fill-current"
-                  />
-                ))}
-              </div>
-              <p className="text-gray-600 mb-6 italic">
-                "Their property management transformed my rental property. The
-                space looks amazing and attracts high-quality tenants."
-              </p>
-              <div className="flex items-center">
-                <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mr-4">
-                  <Users className="h-6 w-6 text-gray-600" />
-                </div>
-                <div>
-                  <p className="font-bold text-gray-800">Vijay</p>
-                  <p className="text-sm text-gray-500">Property Developer</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
       <section className="py-20 bg-gray-800 text-white">
         <div className="container mx-auto px-6 text-center">
@@ -520,10 +423,14 @@ const Services = () => {
             confidence.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all">
+            <Button
+              onClick={() => navigate("/contact")}
+              className="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all"
+            >
               Contact Us Today
             </Button>
             <Button
+              onClick={() => navigate("/about")}
               variant="outline"
               className="border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-3 rounded-full transition-all"
             >
